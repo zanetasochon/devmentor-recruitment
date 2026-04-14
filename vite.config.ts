@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-/** Lokalnie / Vercel: `./`; GitHub Actions ustawia `VITE_BASE_URL=/<nazwa-repo>/`. */
+/** Domyślnie `./` (Vercel, GitHub Pages z własną domeną i pod `/user/repo/`). Opcjonalnie: `VITE_BASE_URL=/<repo>/`. */
 function resolveBase(): string {
   const raw = process.env.VITE_BASE_URL?.trim();
   if (!raw) return "./";

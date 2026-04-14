@@ -25,10 +25,9 @@ jobs:
           cache: npm
       - name: Install
         run: npm ci
+      # Bez VITE_BASE_URL → base `./` w Vite: działa pod github.io/<repo>/ i pod własną domeną (np. rekrutacja.devmentor.pl).
       - name: Build
         run: npm run build
-        env:
-          VITE_BASE_URL: /${{ github.event.repository.name }}/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

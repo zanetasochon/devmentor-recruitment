@@ -76,19 +76,28 @@ Workflow: `.github/workflows/deploy-pages.yml` (build `dist/` i wdrożenie przez
 
 0. **Prywatne repo na darmowym koncie:** GitHub Pages z Actions nie włączy się — trzeba **zmienić widoczność repozytorium na Public** albo mieć płatny plan (np. GitHub Pro), który pozwala na Pages z prywatnego repozytorium. Alternatywa przy prywatnym repo: **Vercel** (import z GitHuba działa bez publikowania kodu).
 1. **Settings → Pages → Build and deployment:** źródło **GitHub Actions** (nie „Deploy from a branch”).
-2. Pierwszy push na `main` (albo **Actions → Deploy to GitHub Pages → Run workflow**) zbuduje projekt z `VITE_BASE_URL=/<nazwa-repo>/`, żeby zasoby z `public/` ładowały się pod adresem typu `https://<user>.github.io/<repo>/`.
+2. Pierwszy push na `main` (albo **Actions → Deploy to GitHub Pages → Run workflow**) uruchomi build z domyślnym `base: "./"` (działa pod `https://<user>.github.io/<repo>/` i pod własną domeną w katalogu głównym).
 
 **Na ekranie Pages widać tylko „Suggested workflows” / „Workflow details will appear…”?**  
 To oczekiwanie przed **pierwszym udanym** wdrożeniem. Nasz workflow to własny plik `.github/workflows/deploy-pages.yml` (nie trzeba klikać szablonów Jekyll/HTML). Wejdź w zakładkę **Actions**, wybierz **Deploy to GitHub Pages** i sprawdź ostatni run (albo **Run workflow**). Jeśli job **deploy** czeka na zatwierdzenie środowiska **github-pages**, zatwierdź go raz w interfejsie runu. Po zielonym deployu sekcja Pages uzupełni się o link.  
-**Adres strony projektu** ma zawsze ścieżkę z nazwą repo, np. `https://zanetasochon.github.io/devmentor-recruitment/` (HashRouter: `…/#/`, `…/#/audyt`).
+**Adres strony projektu** (bez własnej domeny): `https://zanetasochon.github.io/devmentor-recruitment/` (HashRouter: `…/#/`, `…/#/audyt`).
 
-**Lokalny test pod tą samą ścieżkę co Pages:**
+**Własna domena `rekrutacja.devmentor.pl`**
+
+1. **GitHub:** **Settings → Pages → Custom domain** — wpisz dokładnie: `rekrutacja.devmentor.pl` (bez `https://`). Zapisz i poczekaj na weryfikację DNS.
+2. **DNS** (tam gdzie obsługujesz strefę `devmentor.pl`, np. OVH / Cloudflare / home.pl): dodaj rekord **CNAME**:
+   - **nazwa / host:** `rekrutacja` (czasem wpisuje się pełną `rekrutacja.devmentor.pl` — zależy od panelu),
+   - **wartość / cel:** `zanetasochon.github.io` (bez `https://`, bez ścieżki `/devmentor-recruitment`).
+3. Po propagacji DNS (od kilku minut do 48 h) GitHub włączy certyfikat; wtedy zaznacz **Enforce HTTPS** w Pages, jeśli nie jest już aktywne.
+4. W repozytorium jest `public/CNAME` z tą domeną — trafia do `dist/` przy buildzie i jest zgodny z [dokumentacją GitHub Pages](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site).
+
+**Lokalny test (jak na GitHub Actions, base `./`):**
 
 ```bash
-VITE_BASE_URL=/devmentor-recruitment/ npm run build && npx vite preview
+npm run build && npx vite preview
 ```
 
-Podmień `devmentor-recruitment` na nazwę swojego repozytorium, jeśli jest inna.
+Opcjonalnie test ze sztywnym prefiksem repo: `VITE_BASE_URL=/devmentor-recruitment/ npm run build` (nieużywane w domyślnym workflow).
 
 ## Deploy na Vercel
 
@@ -102,7 +111,7 @@ Podmień `devmentor-recruitment` na nazwę swojego repozytorium, jeśli jest inn
 ## Routing i base path
 
 - Routing działa przez `HashRouter`, więc linki mają postać `/#/privacy` (na GitHub Pages: `https://…github.io/<repo>/#/privacy`).
-- W `vite.config.ts` domyślnie `base: "./"` (Vercel, podgląd lokalny); workflow GitHub Pages ustawia `VITE_BASE_URL` na `/<nazwa-repo>/`. Obrazki i pliki z `public/` są łączone przez `publicAsset()` w `src/lib/publicAsset.ts`.
+- W `vite.config.ts` domyślnie `base: "./"` (Vercel, GitHub Pages, własna domena). Opcjonalnie `VITE_BASE_URL` przy buildzie. Obrazki z `public/` — `publicAsset()` w `src/lib/publicAsset.ts`.
 - Przy `BrowserRouter` trzeba by było dodać fallback SPA po stronie hosta; przy HashRouter nie jest to potrzebne.
 
 ## Analityka (placeholder)
