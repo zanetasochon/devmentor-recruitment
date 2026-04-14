@@ -83,8 +83,8 @@ Wymagane ustawienia repo:
 1. Zaloguj się na [vercel.com](https://vercel.com) i **Add New… → Project**.
 2. **Import** repozytorium `devmentor-recruitment` z GitHuba (Vercel wykryje Vite).
 3. Ustawienia domyślne są zwykle poprawne: **Build Command** `npm run build`, **Output** `dist` (możesz też polegać na pliku `vercel.json` w rootcie).
-4. W **Environment Variables** dodaj opcjonalnie:
-   - `VITE_RECRUITMENT_WEBHOOK_URL` — URL webhooka Make (formularz rekrutacyjny); bez tej zmiennej formularz nadal działa, ale wysyłka na backend się nie wykona.
+4. W **Environment Variables** możesz dodać opcjonalnie:
+   - `VITE_RECRUITMENT_WEBHOOK_URL` — inny URL webhooka Make niż domyślny w kodzie (nadpisanie przy buildzie).
 5. **Deploy**. Adres produkcyjny będzie miał postać `https://<projekt>.vercel.app`; trasy to `/#/`, `/#/rekrutacja`, `/#/audyt`, `/#/privacy` (HashRouter).
 
 ## Routing i base path

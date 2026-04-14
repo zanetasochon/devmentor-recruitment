@@ -16,14 +16,15 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { trackEvent } from "../lib/analytics";
 import { primaryFilledSubmitButtonStyles } from "../lib/ctaButtonStyles";
+import { DEFAULT_MAKE_LEADS_WEBHOOK } from "../lib/defaultMakeWebhookUrl";
 import {
   isPodcastCodeOutsideValidityWindow,
   VALID_PODCAST_CODE,
 } from "../lib/podcastCodePolicy";
 
-const RECRUITMENT_WEBHOOK_URL = import.meta.env.VITE_RECRUITMENT_WEBHOOK_URL as
-  | string
-  | undefined;
+const RECRUITMENT_WEBHOOK_URL =
+  (import.meta.env.VITE_RECRUITMENT_WEBHOOK_URL as string | undefined)?.trim() ||
+  DEFAULT_MAKE_LEADS_WEBHOOK;
 
 type FormValues = {
   name: string;
@@ -242,17 +243,6 @@ export function RecruitmentForm() {
       if (values.githubUrl.trim() && !normalizedGithub) {
         form.setFieldError("githubUrl", "Wpisz poprawny adres URL profilu GitHub.");
         focusFirstInvalidControl();
-        return;
-      }
-
-      if (!RECRUITMENT_WEBHOOK_URL) {
-        trackEvent("submit_success", {
-          form_version: "recruitment_v1",
-          page_variant: "recruitment",
-          delivery: "client_only_no_webhook",
-        });
-        setIsSuccess(true);
-        form.reset();
         return;
       }
 

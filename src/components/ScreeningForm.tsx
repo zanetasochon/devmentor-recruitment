@@ -15,8 +15,9 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { trackEvent } from "../lib/analytics";
 import { primaryFilledSubmitButtonStyles } from "../lib/ctaButtonStyles";
+import { DEFAULT_MAKE_LEADS_WEBHOOK } from "../lib/defaultMakeWebhookUrl";
 
-const MAKE_WEBHOOK_URL = "https://hook.eu1.make.com/i8plt1j222q4mw82aseqhiyo8h3x9mu5";
+const MAKE_WEBHOOK_URL = DEFAULT_MAKE_LEADS_WEBHOOK;
 const HOSTNAME_WITH_TLD_REGEX =
   /^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+(?:[a-z]{2,63}|xn--[a-z0-9-]{2,59})$/i;
 
