@@ -84,7 +84,7 @@ To oczekiwanie przed **pierwszym udanym** wdrożeniem. Nasz workflow to własny 
 
 **Własna domena `rekrutacja.devmentor.pl`**
 
-1. **GitHub:** **Settings → Pages → Custom domain** — wpisz dokładnie: `rekrutacja.devmentor.pl` (bez `https://`). Zapisz i poczekaj na weryfikację DNS.
+1. **GitHub:** **Settings → Pages → Custom domain** — wpisz dokładnie: `rekrutacja.devmentor.pl` (bez `https://`, **bez ukośnika na końcu** — `rekrutacja.devmentor.pl/` GitHub odrzuci jako „not properly formatted”). Zapisz i poczekaj na weryfikację DNS.
 2. **DNS** (tam gdzie obsługujesz strefę `devmentor.pl`, np. OVH / Cloudflare / home.pl): dodaj rekord **CNAME**:
    - **nazwa / host:** `rekrutacja` (czasem wpisuje się pełną `rekrutacja.devmentor.pl` — zależy od panelu),
    - **wartość / cel:** `zanetasochon.github.io` (bez `https://`, bez ścieżki `/devmentor-recruitment`).
