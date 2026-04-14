@@ -78,6 +78,10 @@ Workflow: `.github/workflows/deploy-pages.yml` (build `dist/` i wdrożenie przez
 1. **Settings → Pages → Build and deployment:** źródło **GitHub Actions** (nie „Deploy from a branch”).
 2. Pierwszy push na `main` (albo **Actions → Deploy to GitHub Pages → Run workflow**) zbuduje projekt z `VITE_BASE_URL=/<nazwa-repo>/`, żeby zasoby z `public/` ładowały się pod adresem typu `https://<user>.github.io/<repo>/`.
 
+**Na ekranie Pages widać tylko „Suggested workflows” / „Workflow details will appear…”?**  
+To oczekiwanie przed **pierwszym udanym** wdrożeniem. Nasz workflow to własny plik `.github/workflows/deploy-pages.yml` (nie trzeba klikać szablonów Jekyll/HTML). Wejdź w zakładkę **Actions**, wybierz **Deploy to GitHub Pages** i sprawdź ostatni run (albo **Run workflow**). Jeśli job **deploy** czeka na zatwierdzenie środowiska **github-pages**, zatwierdź go raz w interfejsie runu. Po zielonym deployu sekcja Pages uzupełni się o link.  
+**Adres strony projektu** ma zawsze ścieżkę z nazwą repo, np. `https://zanetasochon.github.io/devmentor-recruitment/` (HashRouter: `…/#/`, `…/#/audyt`).
+
 **Lokalny test pod tą samą ścieżkę co Pages:**
 
 ```bash
