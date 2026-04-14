@@ -9,8 +9,14 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { HashRouter } from "react-router-dom";
 import App from "./App";
+import { publicAsset } from "./lib/publicAsset";
 import { appTheme } from "./theme";
 import "./styles.css";
+
+document.documentElement.style.setProperty(
+  "--nav-decore-yellow-bg",
+  `url('${publicAsset("assets/decore-yellow.png")}')`,
+);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

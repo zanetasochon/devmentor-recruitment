@@ -1,5 +1,6 @@
 import { Anchor, AppShell, Group, Image, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
+import { publicAsset } from "../lib/publicAsset";
 
 const YOUTUBE_URL = "https://www.youtube.com/channel/UCXasVW0-mZLLoufw_uH9okA";
 const LINKEDIN_URL = "https://www.linkedin.com/in/żaneta-sochoń/";
@@ -56,7 +57,7 @@ export function StickyFooter() {
               className="footer-social-link"
             >
               <Image
-                src="/assets/logo-linkedin.png"
+                src={publicAsset("assets/logo-linkedin.png")}
                 alt="LinkedIn"
                 w={18}
                 h={18}
@@ -72,7 +73,7 @@ export function StickyFooter() {
               className="footer-social-link"
             >
               <Image
-                src="/assets/logo-youtube.png"
+                src={publicAsset("assets/logo-youtube.png")}
                 alt="YouTube"
                 w={18}
                 h={18}

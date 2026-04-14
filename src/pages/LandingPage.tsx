@@ -25,6 +25,7 @@ import {
   primaryHeroButtonStyles,
   secondaryHeroButtonStyles,
 } from "../lib/ctaButtonStyles";
+import { publicAsset } from "../lib/publicAsset";
 
 const headerLinkStyle = {
   fontSize: "16px",
@@ -73,7 +74,7 @@ type WhyExpert = {
 const whyExperts: WhyExpert[] = [
   {
     name: "Żaneta Sochoń",
-    imageSrc: "/assets/photo-zaneta-sochon-white.png",
+    imageSrc: publicAsset("assets/photo-zaneta-sochon-white.png"),
     imageAlt: "Żaneta Sochoń",
     imageMaxWidth: 460,
     imageRightOnDesktop: false,
@@ -91,9 +92,9 @@ const whyExperts: WhyExpert[] = [
   },
   {
     name: "Mateusz Bogolubow",
-    imageSrc: "/assets/photo-mateusz-bogolubow.png",
+    imageSrc: publicAsset("assets/photo-mateusz-bogolubow.png"),
     imageAlt: "Mateusz Bogolubow",
-    secondaryImageSrc: "/assets/photo-mateusz-bogolubow-secondary.png",
+    secondaryImageSrc: publicAsset("assets/photo-mateusz-bogolubow-secondary.png"),
     secondaryImageAlt: "Mateusz Bogolubow podczas nagrania",
     imageMaxWidth: 460,
     imageRightOnDesktop: true,
@@ -170,7 +171,7 @@ export function LandingPage() {
           >
             <Group h="100%" justify="space-between" wrap="nowrap">
               <Anchor component={Link} to="/audyt" underline="never" aria-label="DevMentor home">
-                <Image src="/assets/logo-devmentor.png" alt="devmentor.pl" h={56} w="auto" />
+                <Image src={publicAsset("assets/logo-devmentor.png")} alt="devmentor.pl" h={56} w="auto" />
               </Anchor>
 
               <Group gap="lg" visibleFrom="md">
@@ -221,7 +222,7 @@ export function LandingPage() {
                   styles={socialIconLinkStyles}
                   className="header-social-link"
                 >
-                  <Image src="/assets/logo-linkedin.png" alt="" aria-hidden="true" w={18} h={18} />
+                  <Image src={publicAsset("assets/logo-linkedin.png")} alt="" aria-hidden="true" w={18} h={18} />
                 </Anchor>
                 <Anchor
                   href="https://www.youtube.com/channel/UCXasVW0-mZLLoufw_uH9okA"
@@ -231,7 +232,7 @@ export function LandingPage() {
                   styles={socialIconLinkStyles}
                   className="header-social-link"
                 >
-                  <Image src="/assets/logo-youtube.png" alt="" aria-hidden="true" w={18} h={18} />
+                  <Image src={publicAsset("assets/logo-youtube.png")} alt="" aria-hidden="true" w={18} h={18} />
                 </Anchor>
               </Group>
             </Group>
@@ -256,7 +257,7 @@ export function LandingPage() {
             zIndex: 0,
           }}
         >
-          <Image src="/assets/decore-hero.png" alt="" w="100%" h="auto" />
+          <Image src={publicAsset("assets/decore-hero.png")} alt="" w="100%" h="auto" />
         </Box>
 
         <Container size="lg" py={56} style={{ position: "relative", zIndex: 1 }}>
@@ -293,7 +294,7 @@ export function LandingPage() {
                             bottom: "-18px",
                             width: "140%",
                             height: "30px",
-                            backgroundImage: "url('/assets/decore-yellow.png')",
+                            backgroundImage: `url('${publicAsset("assets/decore-yellow.png")}')`,
                             backgroundRepeat: "no-repeat",
                             backgroundSize: "contain",
                             zIndex: -1,
@@ -331,7 +332,7 @@ export function LandingPage() {
                         className="hero-btn-secondary hero-cta-button"
                         rightSection={
                           <Image
-                            src="/assets/icon-arrow-right.png"
+                            src={publicAsset("assets/icon-arrow-right.png")}
                             alt=""
                             aria-hidden="true"
                             w={16}

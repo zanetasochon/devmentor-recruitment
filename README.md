@@ -70,13 +70,20 @@ npm run a11y:check
 
 ## Deploy na GitHub Pages
 
-W repo jest gotowy workflow: `.github/workflows/deploy.yml`.
+Workflow: `.github/workflows/deploy-pages.yml` (build `dist/` i wdrożenie przez GitHub Actions).
 
-Wymagane ustawienia repo:
+**Ustawienia repozytorium (jednorazowo):**
 
-1. Wejdź w `Settings -> Pages`.
-2. Wybierz `Build and deployment: GitHub Actions`.
-3. Push na `main` uruchomi build i publikację `dist`.
+1. **Settings → Pages → Build and deployment:** źródło **GitHub Actions** (nie „Deploy from a branch”).
+2. Pierwszy push na `main` (albo **Actions → Deploy to GitHub Pages → Run workflow**) zbuduje projekt z `VITE_BASE_URL=/<nazwa-repo>/`, żeby zasoby z `public/` ładowały się pod adresem typu `https://<user>.github.io/<repo>/`.
+
+**Lokalny test pod tą samą ścieżkę co Pages:**
+
+```bash
+VITE_BASE_URL=/devmentor-recruitment/ npm run build && npx vite preview
+```
+
+Podmień `devmentor-recruitment` na nazwę swojego repozytorium, jeśli jest inna.
 
 ## Deploy na Vercel
 
@@ -89,9 +96,9 @@ Wymagane ustawienia repo:
 
 ## Routing i base path
 
-- Routing działa przez `HashRouter`, więc linki mają postać `/#/privacy`.
-- W `vite.config.ts` ustawione jest `base: "./"` dla zgodności z GH Pages.
-- Jeśli przejdziesz na `BrowserRouter`, ustaw odpowiedni `base` pod nazwę repo i dodaj fallback dla tras.
+- Routing działa przez `HashRouter`, więc linki mają postać `/#/privacy` (na GitHub Pages: `https://…github.io/<repo>/#/privacy`).
+- W `vite.config.ts` domyślnie `base: "./"` (Vercel, podgląd lokalny); workflow GitHub Pages ustawia `VITE_BASE_URL` na `/<nazwa-repo>/`. Obrazki i pliki z `public/` są łączone przez `publicAsset()` w `src/lib/publicAsset.ts`.
+- Przy `BrowserRouter` trzeba by było dodać fallback SPA po stronie hosta; przy HashRouter nie jest to potrzebne.
 
 ## Analityka (placeholder)
 

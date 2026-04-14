@@ -25,6 +25,7 @@ import {
   primaryHeroButtonStyles,
   secondaryHeroButtonStyles,
 } from "../lib/ctaButtonStyles";
+import { publicAsset } from "../lib/publicAsset";
 
 const headerLinkStyle = {
   fontSize: "16px",
@@ -73,9 +74,9 @@ type WhyExpert = {
 const whyExperts: WhyExpert[] = [
   {
     name: "Mateusz Bogolubow",
-    imageSrc: "/assets/photo-mateusz-bogolubow.png",
+    imageSrc: publicAsset("assets/photo-mateusz-bogolubow.png"),
     imageAlt: "Mateusz Bogolubow",
-    secondaryImageSrc: "/assets/photo-mateusz-bogolubow-secondary.png",
+    secondaryImageSrc: publicAsset("assets/photo-mateusz-bogolubow-secondary.png"),
     secondaryImageAlt: "Mateusz Bogolubow podczas nagrania",
     imageMaxWidth: 460,
     imageRightOnDesktop: true,
@@ -152,7 +153,7 @@ export function RecruitmentLandingPage() {
           >
             <Group h="100%" justify="space-between" wrap="nowrap">
               <Anchor component={Link} to="/" underline="never" aria-label="DevMentor home">
-                <Image src="/assets/logo-devmentor.png" alt="devmentor.pl" h={56} w="auto" />
+                <Image src={publicAsset("assets/logo-devmentor.png")} alt="devmentor.pl" h={56} w="auto" />
               </Anchor>
 
               <Group gap="lg" visibleFrom="md">
@@ -203,7 +204,7 @@ export function RecruitmentLandingPage() {
                   styles={socialIconLinkStyles}
                   className="header-social-link"
                 >
-                  <Image src="/assets/logo-linkedin.png" alt="" aria-hidden="true" w={18} h={18} />
+                  <Image src={publicAsset("assets/logo-linkedin.png")} alt="" aria-hidden="true" w={18} h={18} />
                 </Anchor>
                 <Anchor
                   href="https://www.youtube.com/channel/UCXasVW0-mZLLoufw_uH9okA"
@@ -213,7 +214,7 @@ export function RecruitmentLandingPage() {
                   styles={socialIconLinkStyles}
                   className="header-social-link"
                 >
-                  <Image src="/assets/logo-youtube.png" alt="" aria-hidden="true" w={18} h={18} />
+                  <Image src={publicAsset("assets/logo-youtube.png")} alt="" aria-hidden="true" w={18} h={18} />
                 </Anchor>
               </Group>
             </Group>
@@ -238,7 +239,7 @@ export function RecruitmentLandingPage() {
             zIndex: 0,
           }}
         >
-          <Image src="/assets/decore-hero.png" alt="" w="100%" h="auto" />
+          <Image src={publicAsset("assets/decore-hero.png")} alt="" w="100%" h="auto" />
         </Box>
 
         <Container size="lg" py={56} style={{ position: "relative", zIndex: 1 }}>
@@ -275,7 +276,7 @@ export function RecruitmentLandingPage() {
                             bottom: "-18px",
                             width: "140%",
                             height: "30px",
-                            backgroundImage: "url('/assets/decore-yellow.png')",
+                            backgroundImage: `url('${publicAsset("assets/decore-yellow.png")}')`,
                             backgroundRepeat: "no-repeat",
                             backgroundSize: "contain",
                             zIndex: -1,
@@ -293,7 +294,7 @@ export function RecruitmentLandingPage() {
                     </Text>
                     <Box visibleFrom="md">
                       <Image
-                        src="/assets/photo-mateusz-bogolubow-secondary.png"
+                        src={publicAsset("assets/photo-mateusz-bogolubow-secondary.png")}
                         alt="Mateusz Bogolubow podczas nagrania"
                         radius="lg"
                         mt="md"
@@ -324,7 +325,7 @@ export function RecruitmentLandingPage() {
                         className="hero-btn-secondary hero-cta-button"
                         rightSection={
                           <Image
-                            src="/assets/icon-arrow-right.png"
+                            src={publicAsset("assets/icon-arrow-right.png")}
                             alt=""
                             aria-hidden="true"
                             w={16}
