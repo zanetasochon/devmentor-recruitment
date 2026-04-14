@@ -74,6 +74,7 @@ Workflow: `.github/workflows/deploy-pages.yml` (build `dist/` i wdrożenie przez
 
 **Ustawienia repozytorium (jednorazowo):**
 
+0. **Prywatne repo na darmowym koncie:** GitHub Pages z Actions nie włączy się — trzeba **zmienić widoczność repozytorium na Public** albo mieć płatny plan (np. GitHub Pro), który pozwala na Pages z prywatnego repozytorium. Alternatywa przy prywatnym repo: **Vercel** (import z GitHuba działa bez publikowania kodu).
 1. **Settings → Pages → Build and deployment:** źródło **GitHub Actions** (nie „Deploy from a branch”).
 2. Pierwszy push na `main` (albo **Actions → Deploy to GitHub Pages → Run workflow**) zbuduje projekt z `VITE_BASE_URL=/<nazwa-repo>/`, żeby zasoby z `public/` ładowały się pod adresem typu `https://<user>.github.io/<repo>/`.
 
