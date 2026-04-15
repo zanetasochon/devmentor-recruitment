@@ -185,6 +185,15 @@ export function RecruitmentLandingPage() {
                   Twój rekruter Mateusz
                 </Anchor>
                 <Anchor
+                  href="#partner-title"
+                  onClick={scrollToSection("partner-title")}
+                  underline="never"
+                  style={headerLinkStyle}
+                  className="nav-link-decore"
+                >
+                  Partner
+                </Anchor>
+                <Anchor
                   href="#faq-title"
                   onClick={scrollToSection("faq-title")}
                   underline="never"
@@ -628,6 +637,69 @@ export function RecruitmentLandingPage() {
                   ))}
                 </Stack>
               </Stack>
+            </Box>
+
+            <Box component="section" aria-labelledby="partner-title">
+              <Paper
+                p={{ base: "lg", md: "xl" }}
+                radius="lg"
+                withBorder
+                style={{
+                  backgroundColor: "rgba(10, 112, 255, 0.06)",
+                  borderColor: "rgba(10, 112, 255, 0.15)",
+                }}
+              >
+                <Grid gutter={{ base: "lg", md: "xl" }} align="center">
+                  <Grid.Col span={{ base: 12, md: 5 }}>
+                    <Anchor
+                      href="https://videopoint.pl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      underline="never"
+                      display="block"
+                      style={{ maxWidth: 320 }}
+                      mx={{ base: "auto", md: 0 }}
+                    >
+                      <Image
+                        src={publicAsset("assets/videopoint-logo.png")}
+                        alt="VideoPoint — Grupa Helion"
+                        w="100%"
+                        maw={320}
+                        fit="contain"
+                        style={{ display: "block" }}
+                      />
+                    </Anchor>
+                  </Grid.Col>
+                  <Grid.Col span={{ base: 12, md: 7 }}>
+                    <Stack gap="sm">
+                      <Text
+                        size="sm"
+                        fw={700}
+                        tt="uppercase"
+                        c="blue.7"
+                        style={{ letterSpacing: "0.12em" }}
+                      >
+                        Partner
+                      </Text>
+                      <Title id="partner-title" order={2} className="result-heading">
+                        VideoPoint
+                      </Title>
+                      <Text size="md" maw={640}>
+                        Próbną rekrutację realizujemy we współpracy z{" "}
+                        <Text span fw={600}>
+                          VideoPoint
+                        </Text>{" "}
+                        — platformą wideo dla branży IT z grupy Helion (
+                        <Anchor href="https://videopoint.pl" target="_blank" rel="noopener noreferrer" fw={600}>
+                          videopoint.pl
+                        </Anchor>
+                        ). To dzięki tej współpracy możemy łączyć podcast z praktycznym wsparciem w
+                        przygotowaniu do rozmów rekrutacyjnych.
+                      </Text>
+                    </Stack>
+                  </Grid.Col>
+                </Grid>
+              </Paper>
             </Box>
 
             <Box component="section" aria-labelledby="faq-title" className="faq-section">
