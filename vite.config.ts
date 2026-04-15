@@ -15,7 +15,7 @@ export default defineConfig({
   server: {
     port: 5173,
     strictPort: false,
-    /** Łatwiejszy dostęp z `localhost` i z sieci lokalnej; zajęty port → Vite wybiera następny (np. 5174). */
-    host: true,
+    /** Tylko localhost — stabilniejsze niż `host: true` przy VPN / firewallu. Z sieci LAN: `npm run dev -- --host`. */
+    host: "localhost",
   },
 });
