@@ -12,4 +12,10 @@ function resolveBase(): string {
 export default defineConfig({
   base: resolveBase(),
   plugins: [react()],
+  server: {
+    port: 5173,
+    strictPort: false,
+    /** Łatwiejszy dostęp z `localhost` i z sieci lokalnej; zajęty port → Vite wybiera następny (np. 5174). */
+    host: true,
+  },
 });
