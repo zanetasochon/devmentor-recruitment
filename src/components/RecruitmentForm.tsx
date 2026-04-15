@@ -3,6 +3,7 @@ import {
   Anchor,
   Box,
   Button,
+  Checkbox,
   Grid,
   Select,
   Stack,
@@ -35,6 +36,7 @@ type FormValues = {
   jobChangeTiming: string;
   description: string;
   githubUrl: string;
+  videoTestimonialConsent: boolean;
   website: string;
 };
 
@@ -173,6 +175,7 @@ export function RecruitmentForm() {
       jobChangeTiming: "",
       description: "",
       githubUrl: "",
+      videoTestimonialConsent: false,
       website: "",
     },
     validate: {
@@ -263,6 +266,7 @@ export function RecruitmentForm() {
             jobChangeTiming: values.jobChangeTiming || null,
             description: values.description.trim(),
             githubUrl: normalizedGithub,
+            videoTestimonialConsent: values.videoTestimonialConsent,
           }),
         });
 
@@ -432,6 +436,11 @@ export function RecruitmentForm() {
           type="url"
           autoComplete="url"
           {...form.getInputProps("githubUrl")}
+        />
+
+        <Checkbox
+          label="Chętnie nagram krótką video-opinie na temat całego procesu."
+          {...form.getInputProps("videoTestimonialConsent", { type: "checkbox" })}
         />
 
         <Box component="div" className="visually-hidden">
