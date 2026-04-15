@@ -671,7 +671,11 @@ export function RecruitmentLandingPage() {
                     </Anchor>
                   </Grid.Col>
                   <Grid.Col span={{ base: 12, md: 7 }}>
-                    <Stack gap="sm">
+                    <Stack
+                      gap="sm"
+                      ta={{ base: "center", md: "left" }}
+                      align={{ base: "center", md: "stretch" }}
+                    >
                       <Text
                         size="sm"
                         fw={700}
@@ -684,7 +688,7 @@ export function RecruitmentLandingPage() {
                       <Title id="partner-title" order={2} className="result-heading">
                         VideoPoint
                       </Title>
-                      <Text size="md" maw={640}>
+                      <Text size="md" maw={640} mx={{ base: "auto", md: 0 }}>
                         Próbną rekrutację realizujemy we współpracy z{" "}
                         <Text span fw={600}>
                           VideoPoint
