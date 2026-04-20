@@ -17,5 +17,15 @@ export default defineConfig({
     strictPort: false,
     /** Tylko localhost — stabilniejsze niż `host: true` przy VPN / firewallu. Z sieci LAN: `npm run dev -- --host`. */
     host: "localhost",
+    /**
+     * Czeka aż zapis pliku się „ustabilizuje” — mniej błędów ECANCELED przy odczycie przez Vite
+     * (wtedy w przeglądarce często widać 500 na module / @vite/client).
+     */
+    watch: {
+      awaitWriteFinish: {
+        stabilityThreshold: 300,
+        pollInterval: 100,
+      },
+    },
   },
 });

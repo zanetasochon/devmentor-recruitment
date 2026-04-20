@@ -51,6 +51,8 @@ Otwórz w przeglądarce **dokładnie** adres z terminala (np. `http://localhost:
 
 **`Failed to load resource: net::ERR_CONNECTION_REFUSED`:** serwer dev nie działa na tym hoście/porcie co wpisujesz w pasku adresu — uruchom `npm run dev` i użyj portu z komunikatu (jeśli 5173 jest zajęty, Vite wybierze np. 5174). Upewnij się, że nie masz zakładki z **starym** portem po restarcie. Dostęp z innego urządzenia w sieci: `npm run dev -- --host`.
 
+**`500 (Internal Server Error)` przy `npm run dev`:** często to Vite, nie Twoja aplikacja — w terminalu szukaj `ECANCELED` / `operation canceled, read` (plugin `vite:react-babel`). Zwykle pomaga: **Ctrl+C**, ponownie `npm run dev` (bez szybkiego wielokrotnego `r` w konsoli Vite), ewentualnie `rm -rf node_modules/.vite`. Projekt w **iCloud / OneDrive** może powodować anulowane odczyty — lepiej katalog poza synchronizacją.
+
 ## Build
 
 ```bash
