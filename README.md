@@ -33,6 +33,8 @@ npm install
 npm run dev
 ```
 
+Po **`git pull`**, jeśli zmienił się `package.json` / `package-lock.json`, zrób ponownie **`npm install`** — bez tego Vite potrafi nie wystartować (np. brak `@vitejs/plugin-react-swc` po migracji z Babela).
+
 ### pnpm
 
 ```bash
