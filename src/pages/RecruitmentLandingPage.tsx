@@ -362,138 +362,134 @@ export function RecruitmentLandingPage() {
             </Box>
 
             <Box component="section" aria-labelledby="partner-title">
-              <Paper
-                p={{ base: "lg", md: "xl" }}
-                radius="lg"
-                withBorder
-                style={{
-                  backgroundColor: "rgba(10, 112, 255, 0.06)",
-                  borderColor: "rgba(10, 112, 255, 0.15)",
-                }}
-              >
-                <Stack gap="lg">
-                  <Grid gutter={{ base: "lg", md: "xl" }} align="flex-start">
-                    <Grid.Col span={{ base: 12, md: 5 }}>
-                      <Anchor
-                        href="https://videopoint.pl"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        underline="never"
-                        display="block"
-                        style={{ maxWidth: 320 }}
-                        mx={{ base: "auto", md: 0 }}
+              <Grid gutter={{ base: "md", md: "xl" }} align="center" justify="center">
+                <Grid.Col span={{ base: 12, md: 7 }} className="why-content partner-mobile-center">
+                  <Box className="partner-section-header">
+                    <Stack gap="md" maw={640} mx="auto">
+                      <Text
+                        size="sm"
+                        fw={700}
+                        tt="uppercase"
+                        c="blue.7"
+                        ta="left"
+                        className="why-eyebrow"
+                        style={{ letterSpacing: "0.12em" }}
                       >
-                        <Image
-                          src={publicAsset("assets/videopoint-logo.png")}
-                          alt="Videopoint — Grupa Helion"
-                          w="100%"
-                          maw={320}
-                          fit="contain"
-                          style={{ display: "block" }}
-                        />
-                      </Anchor>
-                    </Grid.Col>
-                    <Grid.Col span={{ base: 12, md: 7 }}>
-                      <Stack gap="md" ta={{ base: "center", md: "left" }}>
-                        <Text
-                          size="sm"
-                          fw={700}
-                          tt="uppercase"
-                          c="blue.7"
-                          style={{ letterSpacing: "0.12em" }}
+                        Partner
+                      </Text>
+                      <Title id="partner-title" order={2} ta="left" className="why-heading">
+                        Videopoint
+                      </Title>
+                      <Text size="md" ta="left">
+                        <strong>Videopoint</strong> to marka Grupy Helion z szerokim katalogiem kursów i szkoleń online
+                        (m.in. IT, biznes, programowanie, dane, cyberbezpieczeństwo). Na{" "}
+                        <Anchor href="https://videopoint.pl" target="_blank" rel="noopener noreferrer" fw={600}>
+                          videopoint.pl
+                        </Anchor>{" "}
+                        kupujesz pojedyncze produkty i korzystasz z kodów oraz bonów przy zamówieniu.
+                      </Text>
+                      <Text size="md" ta="left">
+                        <strong>Videopoint dla firm</strong> to platforma rozwoju kompetencji dla zespołów: tokeny,
+                        ścieżki rozwoju pod profil, przypisania, role lidera i uczestnika, materiały od praktyków — to
+                        osobna ścieżka od zakupów w sklepie. Próbną rekrutację DevMentor realizujemy z Videopoint
+                        (podcast i przygotowanie do rozmów).{" "}
+                        <Anchor
+                          href="https://videopoint.pl/oferta_dla_firm.shtml"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          fw={600}
                         >
-                          Partner
-                        </Text>
-                        <Title id="partner-title" order={2} className="result-heading">
                           Videopoint dla firm
-                        </Title>
-                        <Stack gap="sm" maw={640} mx={{ base: "auto", md: 0 }}>
-                          <Text size="md">
-                            <strong>Videopoint dla firm</strong> to nowoczesna platforma rozwoju kompetencji dla
-                            całych zespołów: setki kursów online z IT, biznesu, programowania, analizy danych,
-                            cyberbezpieczeństwa i nowych technologii — jedno miejsce, by szkolić firmę w sposób
-                            uporządkowany, mierzalny i wygodny.
-                          </Text>
-                          <Text size="md">
-                            Platforma działa na <strong>systemie tokenów</strong>: przypisujesz kursy lub{" "}
-                            <strong>ścieżki rozwoju</strong>, albo pozwalasz pracownikom wybierać treści z
-                            katalogu. Są dwie role — <strong>lider</strong> (przypisania, struktura zespołu,
-                            podgląd postępów i certyfikatów) oraz <strong>uczestnik</strong> (nauka w dogodnym
-                            czasie, testy, certyfikaty). Materiały prowadzą praktycy z branży i są regularnie
-                            aktualizowane.
-                          </Text>
-                          <Text size="md">
-                            Ścieżki rozwoju to gotowe programy krok po kroku do konkretnego profilu zamiast
-                            pojedynczych szkoleń. Videopoint dla firm to część <strong>Grupy Helion</strong> —
-                            lidera wydawnictwa IT w Polsce od ponad 30 lat. Z marką współpracuje już ponad{" "}
-                            <strong>10 tys. firm</strong> i <strong>90 uczelni</strong>.
-                          </Text>
-                          <Text size="md">
-                            Próbną rekrutację DevMentor realizujemy we współpracy z Videopoint — łączymy podcast z
-                            praktycznym wsparciem przed rozmowami rekrutacyjnymi. Oferta B2B:{" "}
-                            <Anchor
-                              href="https://videopoint.pl/oferta_dla_firm.shtml"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              fw={600}
-                            >
-                              Videopoint dla firm
-                            </Anchor>
-                            ; sklep i katalog:{" "}
-                            <Anchor href="https://videopoint.pl" target="_blank" rel="noopener noreferrer" fw={600}>
-                              videopoint.pl
-                            </Anchor>
-                            .
-                          </Text>
-                        </Stack>
-                      </Stack>
-                    </Grid.Col>
-                  </Grid>
-
-                  <Paper
-                    component="aside"
-                    aria-labelledby="partner-discount-heading"
-                    withBorder
-                    p="md"
-                    radius="md"
-                    w="100%"
-                    style={{
-                      backgroundColor: "rgba(33, 180, 149, 0.1)",
-                      borderColor: "rgba(33, 180, 149, 0.35)",
-                    }}
-                  >
-                    <Stack gap="sm" ta={{ base: "center", md: "left" }}>
-                      <Text id="partner-discount-heading" size="sm" fw={600}>
-                        Rabat na start
+                        </Anchor>
+                        {" · "}
+                        <Anchor href="https://videopoint.pl" target="_blank" rel="noopener noreferrer" fw={600}>
+                          videopoint.pl
+                        </Anchor>
                       </Text>
-                      <Text size="md">
-                        Kod poniżej daje <strong>−15%</strong> na ofertę Videopoint dla firm — wklej go przy
-                        zamówieniu. Możesz go zaznaczyć i skopiować albo użyć przycisku.
-                      </Text>
-                      <Group gap="sm" justify="center" wrap="wrap">
-                        <Code
-                          fz="lg"
-                          fw={700}
-                          px="md"
-                          py="sm"
-                          style={{ userSelect: "all", cursor: "text" }}
-                        >
-                          {VIDEOPOINT_DISCOUNT_CODE}
-                        </Code>
-                        <Button
-                          type="button"
-                          variant="light"
-                          color="teal"
-                          size="sm"
-                          onClick={() => partnerDiscountClipboard.copy(VIDEOPOINT_DISCOUNT_CODE)}
-                        >
-                          {partnerDiscountClipboard.copied ? "Skopiowano!" : "Kopiuj kod"}
-                        </Button>
-                      </Group>
                     </Stack>
-                  </Paper>
-                </Stack>
-              </Paper>
+                  </Box>
+                </Grid.Col>
+
+                <Grid.Col span={{ base: 12, md: 5 }} style={{ overflow: "visible" }}>
+                  <Stack gap={0} align="center" style={{ overflow: "visible" }}>
+                    <Anchor
+                      href="https://videopoint.pl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      underline="never"
+                      display="block"
+                      style={{
+                        width: "fit-content",
+                        maxWidth: "100%",
+                        marginInline: "auto",
+                        lineHeight: 0,
+                      }}
+                    >
+                      <Image
+                        src={publicAsset("assets/videopoint-logo.png")}
+                        alt="videopoint — logo"
+                        radius="sm"
+                        h={{ base: 156, sm: 192 }}
+                        w="auto"
+                        maw="100%"
+                        fit="contain"
+                        display="block"
+                        style={{ verticalAlign: "top" }}
+                        styles={{
+                          root: {
+                            paddingBlock: 0,
+                            lineHeight: 0,
+                            width: "fit-content",
+                            maxWidth: "100%",
+                          },
+                        }}
+                      />
+                    </Anchor>
+
+                    <Box className="partner-rabat-card">
+                      <Paper
+                        component="aside"
+                        className="partner-rabat-paper"
+                        aria-labelledby="partner-discount-heading"
+                        withBorder
+                        p={{ base: "md", sm: "lg" }}
+                        radius="md"
+                        w="100%"
+                      >
+                        <Stack gap="sm" ta="center">
+                          <Text id="partner-discount-heading" size="sm" fw={600}>
+                            Rabat na start
+                          </Text>
+                          <Text size="sm">
+                            <strong>Bon −15%</strong> działa przy <strong>zakupach na videopoint.pl</strong> — wklej kod
+                            przy zamówieniu.
+                          </Text>
+                          <Group gap="sm" justify="center" wrap="wrap">
+                            <Code
+                              fz="md"
+                              fw={700}
+                              px="sm"
+                              py="xs"
+                              style={{ userSelect: "all", cursor: "text" }}
+                            >
+                              {VIDEOPOINT_DISCOUNT_CODE}
+                            </Code>
+                            <Button
+                              type="button"
+                              variant="light"
+                              color="teal"
+                              size="xs"
+                              onClick={() => partnerDiscountClipboard.copy(VIDEOPOINT_DISCOUNT_CODE)}
+                            >
+                              {partnerDiscountClipboard.copied ? "Skopiowano!" : "Kopiuj kod"}
+                            </Button>
+                          </Group>
+                        </Stack>
+                      </Paper>
+                    </Box>
+                  </Stack>
+                </Grid.Col>
+              </Grid>
             </Box>
 
             <Box component="section" aria-labelledby="mechanics-title">
