@@ -389,11 +389,7 @@ export function RecruitmentLandingPage() {
                     </Anchor>
                   </Grid.Col>
                   <Grid.Col span={{ base: 12, md: 7 }}>
-                    <Stack
-                      gap="md"
-                      ta={{ base: "center", md: "left" }}
-                      align={{ base: "center", md: "stretch" }}
-                    >
+                    <Stack gap="md" ta={{ base: "center", md: "left" }}>
                       <Text
                         size="sm"
                         fw={700}
