@@ -17,6 +17,7 @@ import {
   Text,
   Title,
 } from "@mantine/core";
+import { useClipboard } from "@mantine/hooks";
 import { IconCheck, IconChevronRight } from "@tabler/icons-react";
 import { MouseEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -72,6 +73,8 @@ type WhyExpert = {
   bullets: string[];
 };
 
+const VIDEOPOINT_DISCOUNT_CODE = "PKwIT15";
+
 const whyExperts: WhyExpert[] = [
   {
     name: "Mateusz Bogolubow",
@@ -97,6 +100,7 @@ const whyExperts: WhyExpert[] = [
 
 export function RecruitmentLandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const partnerDiscountClipboard = useClipboard({ timeout: 2500 });
 
   const scrollToSection =
     (sectionId: string) => (event: MouseEvent<HTMLElement>) => {
@@ -367,103 +371,128 @@ export function RecruitmentLandingPage() {
                   borderColor: "rgba(10, 112, 255, 0.15)",
                 }}
               >
-                <Grid gutter={{ base: "lg", md: "xl" }} align="flex-start">
-                  <Grid.Col span={{ base: 12, md: 5 }}>
-                    <Anchor
-                      href="https://videopoint.pl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      underline="never"
-                      display="block"
-                      style={{ maxWidth: 320 }}
-                      mx={{ base: "auto", md: 0 }}
-                    >
-                      <Image
-                        src={publicAsset("assets/videopoint-logo.png")}
-                        alt="Videopoint — Grupa Helion"
-                        w="100%"
-                        maw={320}
-                        fit="contain"
-                        style={{ display: "block" }}
-                      />
-                    </Anchor>
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, md: 7 }}>
-                    <Stack gap="md" ta={{ base: "center", md: "left" }}>
-                      <Text
-                        size="sm"
-                        fw={700}
-                        tt="uppercase"
-                        c="blue.7"
-                        style={{ letterSpacing: "0.12em" }}
-                      >
-                        Partner
-                      </Text>
-                      <Title id="partner-title" order={2} className="result-heading">
-                        Videopoint dla firm
-                      </Title>
-                      <Stack gap="sm" maw={640} mx={{ base: "auto", md: 0 }}>
-                        <Text size="md">
-                          <strong>Videopoint dla firm</strong> to nowoczesna platforma rozwoju kompetencji dla
-                          całych zespołów: setki kursów online z IT, biznesu, programowania, analizy danych,
-                          cyberbezpieczeństwa i nowych technologii — jedno miejsce, by szkolić firmę w sposób
-                          uporządkowany, mierzalny i wygodny.
-                        </Text>
-                        <Text size="md">
-                          Platforma działa na <strong>systemie tokenów</strong>: przypisujesz kursy lub{" "}
-                          <strong>ścieżki rozwoju</strong>, albo pozwalasz pracownikom wybierać treści z
-                          katalogu. Są dwie role — <strong>lider</strong> (przypisania, struktura zespołu,
-                          podgląd postępów i certyfikatów) oraz <strong>uczestnik</strong> (nauka w dogodnym
-                          czasie, testy, certyfikaty). Materiały prowadzą praktycy z branży i są regularnie
-                          aktualizowane.
-                        </Text>
-                        <Text size="md">
-                          Ścieżki rozwoju to gotowe programy krok po kroku do konkretnego profilu zamiast
-                          pojedynczych szkoleń. Videopoint dla firm to część <strong>Grupy Helion</strong> —
-                          lidera wydawnictwa IT w Polsce od ponad 30 lat. Z marką współpracuje już ponad{" "}
-                          <strong>10 tys. firm</strong> i <strong>90 uczelni</strong>.
-                        </Text>
-                        <Text size="md">
-                          Próbną rekrutację DevMentor realizujemy we współpracy z Videopoint — łączymy podcast z
-                          praktycznym wsparciem przed rozmowami rekrutacyjnymi. Oferta B2B:{" "}
-                          <Anchor
-                            href="https://videopoint.pl/oferta_dla_firm.shtml"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            fw={600}
-                          >
-                            Videopoint dla firm
-                          </Anchor>
-                          ; sklep i katalog:{" "}
-                          <Anchor href="https://videopoint.pl" target="_blank" rel="noopener noreferrer" fw={600}>
-                            videopoint.pl
-                          </Anchor>
-                          .
-                        </Text>
-                      </Stack>
-                      <Paper
-                        withBorder
-                        p="md"
-                        radius="md"
+                <Stack gap="lg">
+                  <Grid gutter={{ base: "lg", md: "xl" }} align="flex-start">
+                    <Grid.Col span={{ base: 12, md: 5 }}>
+                      <Anchor
+                        href="https://videopoint.pl"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        underline="never"
+                        display="block"
+                        style={{ maxWidth: 320 }}
                         mx={{ base: "auto", md: 0 }}
-                        maw={640}
-                        w="100%"
-                        style={{
-                          backgroundColor: "rgba(33, 180, 149, 0.1)",
-                          borderColor: "rgba(33, 180, 149, 0.35)",
-                        }}
                       >
-                        <Text size="sm" fw={600} mb="xs">
-                          Rabat na start
+                        <Image
+                          src={publicAsset("assets/videopoint-logo.png")}
+                          alt="Videopoint — Grupa Helion"
+                          w="100%"
+                          maw={320}
+                          fit="contain"
+                          style={{ display: "block" }}
+                        />
+                      </Anchor>
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, md: 7 }}>
+                      <Stack gap="md" ta={{ base: "center", md: "left" }}>
+                        <Text
+                          size="sm"
+                          fw={700}
+                          tt="uppercase"
+                          c="blue.7"
+                          style={{ letterSpacing: "0.12em" }}
+                        >
+                          Partner
                         </Text>
-                        <Text size="md">
-                          Kod <Code>PKwIT15</Code> daje <strong>−15%</strong> na ofertę Videopoint dla firm —
-                          wpisz go przy zamówieniu.
-                        </Text>
-                      </Paper>
+                        <Title id="partner-title" order={2} className="result-heading">
+                          Videopoint dla firm
+                        </Title>
+                        <Stack gap="sm" maw={640} mx={{ base: "auto", md: 0 }}>
+                          <Text size="md">
+                            <strong>Videopoint dla firm</strong> to nowoczesna platforma rozwoju kompetencji dla
+                            całych zespołów: setki kursów online z IT, biznesu, programowania, analizy danych,
+                            cyberbezpieczeństwa i nowych technologii — jedno miejsce, by szkolić firmę w sposób
+                            uporządkowany, mierzalny i wygodny.
+                          </Text>
+                          <Text size="md">
+                            Platforma działa na <strong>systemie tokenów</strong>: przypisujesz kursy lub{" "}
+                            <strong>ścieżki rozwoju</strong>, albo pozwalasz pracownikom wybierać treści z
+                            katalogu. Są dwie role — <strong>lider</strong> (przypisania, struktura zespołu,
+                            podgląd postępów i certyfikatów) oraz <strong>uczestnik</strong> (nauka w dogodnym
+                            czasie, testy, certyfikaty). Materiały prowadzą praktycy z branży i są regularnie
+                            aktualizowane.
+                          </Text>
+                          <Text size="md">
+                            Ścieżki rozwoju to gotowe programy krok po kroku do konkretnego profilu zamiast
+                            pojedynczych szkoleń. Videopoint dla firm to część <strong>Grupy Helion</strong> —
+                            lidera wydawnictwa IT w Polsce od ponad 30 lat. Z marką współpracuje już ponad{" "}
+                            <strong>10 tys. firm</strong> i <strong>90 uczelni</strong>.
+                          </Text>
+                          <Text size="md">
+                            Próbną rekrutację DevMentor realizujemy we współpracy z Videopoint — łączymy podcast z
+                            praktycznym wsparciem przed rozmowami rekrutacyjnymi. Oferta B2B:{" "}
+                            <Anchor
+                              href="https://videopoint.pl/oferta_dla_firm.shtml"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              fw={600}
+                            >
+                              Videopoint dla firm
+                            </Anchor>
+                            ; sklep i katalog:{" "}
+                            <Anchor href="https://videopoint.pl" target="_blank" rel="noopener noreferrer" fw={600}>
+                              videopoint.pl
+                            </Anchor>
+                            .
+                          </Text>
+                        </Stack>
+                      </Stack>
+                    </Grid.Col>
+                  </Grid>
+
+                  <Paper
+                    component="aside"
+                    aria-labelledby="partner-discount-heading"
+                    withBorder
+                    p="md"
+                    radius="md"
+                    w="100%"
+                    style={{
+                      backgroundColor: "rgba(33, 180, 149, 0.1)",
+                      borderColor: "rgba(33, 180, 149, 0.35)",
+                    }}
+                  >
+                    <Stack gap="sm" ta={{ base: "center", md: "left" }}>
+                      <Text id="partner-discount-heading" size="sm" fw={600}>
+                        Rabat na start
+                      </Text>
+                      <Text size="md">
+                        Kod poniżej daje <strong>−15%</strong> na ofertę Videopoint dla firm — wklej go przy
+                        zamówieniu. Możesz go zaznaczyć i skopiować albo użyć przycisku.
+                      </Text>
+                      <Group gap="sm" justify="center" wrap="wrap">
+                        <Code
+                          fz="lg"
+                          fw={700}
+                          px="md"
+                          py="sm"
+                          style={{ userSelect: "all", cursor: "text" }}
+                        >
+                          {VIDEOPOINT_DISCOUNT_CODE}
+                        </Code>
+                        <Button
+                          type="button"
+                          variant="light"
+                          color="teal"
+                          size="sm"
+                          onClick={() => partnerDiscountClipboard.copy(VIDEOPOINT_DISCOUNT_CODE)}
+                        >
+                          {partnerDiscountClipboard.copied ? "Skopiowano!" : "Kopiuj kod"}
+                        </Button>
+                      </Group>
                     </Stack>
-                  </Grid.Col>
-                </Grid>
+                  </Paper>
+                </Stack>
               </Paper>
             </Box>
 
