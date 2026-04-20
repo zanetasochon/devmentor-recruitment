@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 
 /** Domyślnie `./` (Vercel, GitHub Pages z własną domeną i pod `/user/repo/`). Opcjonalnie: `VITE_BASE_URL=/<repo>/`. */
 function resolveBase(): string {
@@ -26,6 +26,10 @@ export default defineConfig({
         stabilityThreshold: 300,
         pollInterval: 100,
       },
+      /** `VITE_WATCH_POLL=1 npm run dev` — polling zamiast eventów FS (iCloud / problemy z ECANCELED). */
+      ...(process.env.VITE_WATCH_POLL === "1"
+        ? { usePolling: true, interval: 1000 }
+        : {}),
     },
   },
 });
