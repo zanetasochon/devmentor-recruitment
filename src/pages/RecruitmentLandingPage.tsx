@@ -5,6 +5,7 @@ import {
   Box,
   Button,
   Card,
+  Code,
   Container,
   Grid,
   Group,
@@ -167,6 +168,15 @@ export function RecruitmentLandingPage() {
                   Jak wziąć udział
                 </Anchor>
                 <Anchor
+                  href="#partner-title"
+                  onClick={scrollToSection("partner-title")}
+                  underline="never"
+                  style={headerLinkStyle}
+                  className="nav-link-decore"
+                >
+                  Partner
+                </Anchor>
+                <Anchor
                   href="#offer-title"
                   onClick={scrollToSection("offer-title")}
                   underline="never"
@@ -183,15 +193,6 @@ export function RecruitmentLandingPage() {
                   className="nav-link-decore"
                 >
                   Twój rekruter Mateusz
-                </Anchor>
-                <Anchor
-                  href="#partner-title"
-                  onClick={scrollToSection("partner-title")}
-                  underline="never"
-                  style={headerLinkStyle}
-                  className="nav-link-decore"
-                >
-                  Partner
                 </Anchor>
                 <Anchor
                   href="#faq-title"
@@ -354,6 +355,120 @@ export function RecruitmentLandingPage() {
                   </Paper>
                 </Grid.Col>
               </Grid>
+            </Box>
+
+            <Box component="section" aria-labelledby="partner-title">
+              <Paper
+                p={{ base: "lg", md: "xl" }}
+                radius="lg"
+                withBorder
+                style={{
+                  backgroundColor: "rgba(10, 112, 255, 0.06)",
+                  borderColor: "rgba(10, 112, 255, 0.15)",
+                }}
+              >
+                <Grid gutter={{ base: "lg", md: "xl" }} align="flex-start">
+                  <Grid.Col span={{ base: 12, md: 5 }}>
+                    <Anchor
+                      href="https://videopoint.pl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      underline="never"
+                      display="block"
+                      style={{ maxWidth: 320 }}
+                      mx={{ base: "auto", md: 0 }}
+                    >
+                      <Image
+                        src={publicAsset("assets/videopoint-logo.png")}
+                        alt="Videopoint — Grupa Helion"
+                        w="100%"
+                        maw={320}
+                        fit="contain"
+                        style={{ display: "block" }}
+                      />
+                    </Anchor>
+                  </Grid.Col>
+                  <Grid.Col span={{ base: 12, md: 7 }}>
+                    <Stack
+                      gap="md"
+                      ta={{ base: "center", md: "left" }}
+                      align={{ base: "center", md: "stretch" }}
+                    >
+                      <Text
+                        size="sm"
+                        fw={700}
+                        tt="uppercase"
+                        c="blue.7"
+                        style={{ letterSpacing: "0.12em" }}
+                      >
+                        Partner
+                      </Text>
+                      <Title id="partner-title" order={2} className="result-heading">
+                        Videopoint dla firm
+                      </Title>
+                      <Stack gap="sm" maw={640} mx={{ base: "auto", md: 0 }}>
+                        <Text size="md">
+                          <strong>Videopoint dla firm</strong> to nowoczesna platforma rozwoju kompetencji dla
+                          całych zespołów: setki kursów online z IT, biznesu, programowania, analizy danych,
+                          cyberbezpieczeństwa i nowych technologii — jedno miejsce, by szkolić firmę w sposób
+                          uporządkowany, mierzalny i wygodny.
+                        </Text>
+                        <Text size="md">
+                          Platforma działa na <strong>systemie tokenów</strong>: przypisujesz kursy lub{" "}
+                          <strong>ścieżki rozwoju</strong>, albo pozwalasz pracownikom wybierać treści z
+                          katalogu. Są dwie role — <strong>lider</strong> (przypisania, struktura zespołu,
+                          podgląd postępów i certyfikatów) oraz <strong>uczestnik</strong> (nauka w dogodnym
+                          czasie, testy, certyfikaty). Materiały prowadzą praktycy z branży i są regularnie
+                          aktualizowane.
+                        </Text>
+                        <Text size="md">
+                          Ścieżki rozwoju to gotowe programy krok po kroku do konkretnego profilu zamiast
+                          pojedynczych szkoleń. Videopoint dla firm to część <strong>Grupy Helion</strong> —
+                          lidera wydawnictwa IT w Polsce od ponad 30 lat. Z marką współpracuje już ponad{" "}
+                          <strong>10 tys. firm</strong> i <strong>90 uczelni</strong>.
+                        </Text>
+                        <Text size="md">
+                          Próbną rekrutację DevMentor realizujemy we współpracy z Videopoint — łączymy podcast z
+                          praktycznym wsparciem przed rozmowami rekrutacyjnymi. Oferta B2B:{" "}
+                          <Anchor
+                            href="https://videopoint.pl/oferta_dla_firm.shtml"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            fw={600}
+                          >
+                            Videopoint dla firm
+                          </Anchor>
+                          ; sklep i katalog:{" "}
+                          <Anchor href="https://videopoint.pl" target="_blank" rel="noopener noreferrer" fw={600}>
+                            videopoint.pl
+                          </Anchor>
+                          .
+                        </Text>
+                      </Stack>
+                      <Paper
+                        withBorder
+                        p="md"
+                        radius="md"
+                        mx={{ base: "auto", md: 0 }}
+                        maw={640}
+                        w="100%"
+                        style={{
+                          backgroundColor: "rgba(33, 180, 149, 0.1)",
+                          borderColor: "rgba(33, 180, 149, 0.35)",
+                        }}
+                      >
+                        <Text size="sm" fw={600} mb="xs">
+                          Rabat na start
+                        </Text>
+                        <Text size="md">
+                          Kod <Code>PKwIT15</Code> daje <strong>−15%</strong> na ofertę Videopoint dla firm —
+                          wpisz go przy zamówieniu.
+                        </Text>
+                      </Paper>
+                    </Stack>
+                  </Grid.Col>
+                </Grid>
+              </Paper>
             </Box>
 
             <Box component="section" aria-labelledby="mechanics-title">
@@ -637,73 +752,6 @@ export function RecruitmentLandingPage() {
                   ))}
                 </Stack>
               </Stack>
-            </Box>
-
-            <Box component="section" aria-labelledby="partner-title">
-              <Paper
-                p={{ base: "lg", md: "xl" }}
-                radius="lg"
-                withBorder
-                style={{
-                  backgroundColor: "rgba(10, 112, 255, 0.06)",
-                  borderColor: "rgba(10, 112, 255, 0.15)",
-                }}
-              >
-                <Grid gutter={{ base: "lg", md: "xl" }} align="center">
-                  <Grid.Col span={{ base: 12, md: 5 }}>
-                    <Anchor
-                      href="https://videopoint.pl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      underline="never"
-                      display="block"
-                      style={{ maxWidth: 320 }}
-                      mx={{ base: "auto", md: 0 }}
-                    >
-                      <Image
-                        src={publicAsset("assets/videopoint-logo.png")}
-                        alt="VideoPoint — Grupa Helion"
-                        w="100%"
-                        maw={320}
-                        fit="contain"
-                        style={{ display: "block" }}
-                      />
-                    </Anchor>
-                  </Grid.Col>
-                  <Grid.Col span={{ base: 12, md: 7 }}>
-                    <Stack
-                      gap="sm"
-                      ta={{ base: "center", md: "left" }}
-                      align={{ base: "center", md: "stretch" }}
-                    >
-                      <Text
-                        size="sm"
-                        fw={700}
-                        tt="uppercase"
-                        c="blue.7"
-                        style={{ letterSpacing: "0.12em" }}
-                      >
-                        Partner
-                      </Text>
-                      <Title id="partner-title" order={2} className="result-heading">
-                        VideoPoint
-                      </Title>
-                      <Text size="md" maw={640} mx={{ base: "auto", md: 0 }}>
-                        Próbną rekrutację realizujemy we współpracy z{" "}
-                        <Text span fw={600}>
-                          VideoPoint
-                        </Text>{" "}
-                        — platformą wideo dla branży IT z grupy Helion (
-                        <Anchor href="https://videopoint.pl" target="_blank" rel="noopener noreferrer" fw={600}>
-                          videopoint.pl
-                        </Anchor>
-                        ). To dzięki tej współpracy możemy łączyć podcast z praktycznym wsparciem w
-                        przygotowaniu do rozmów rekrutacyjnych.
-                      </Text>
-                    </Stack>
-                  </Grid.Col>
-                </Grid>
-              </Paper>
             </Box>
 
             <Box component="section" aria-labelledby="faq-title" className="faq-section">
