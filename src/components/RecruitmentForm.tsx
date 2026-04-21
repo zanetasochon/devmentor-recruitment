@@ -80,6 +80,29 @@ function pickConfirmId(payload: SubmitWebhookResponse): string {
   return "";
 }
 
+function pickConfirmIdFromHeaders(headers: Headers): string {
+  const direct =
+    headers.get("x-confirm-id") ??
+    headers.get("x-confirmation-id") ??
+    headers.get("x-confirm") ??
+    headers.get("x-id");
+
+  if (direct?.trim()) return direct.trim();
+
+  const locationHeader = headers.get("location");
+  if (locationHeader?.trim()) {
+    try {
+      const parsed = new URL(locationHeader, window.location.origin);
+      const fromLocation = parsed.searchParams.get("confirm") ?? parsed.searchParams.get("id");
+      return fromLocation?.trim() ?? "";
+    } catch {
+      return "";
+    }
+  }
+
+  return "";
+}
+
 const EMAIL_RULES: EmailRule[] = [
   {
     isValid: (email) => email.length > 0,
@@ -245,6 +268,7 @@ export function RecruitmentForm() {
   const onSubmit = form.onSubmit(
     async (values) => {
       setSubmitError("");
+      setConfirmationMessage("");
       trackEvent("submit_attempt", { form_version: "recruitment_v1", page_variant: "recruitment" });
 
       const trimmedCode = values.code.trim();
@@ -307,14 +331,20 @@ export function RecruitmentForm() {
         });
 
         const redirectConfirmId = pickConfirmId(parsed);
-        if (redirectConfirmId) {
+        const redirectFromHeaders = pickConfirmIdFromHeaders(response.headers);
+        const confirmForRedirect = redirectConfirmId || redirectFromHeaders;
+
+        if (confirmForRedirect) {
           const target = new URL(window.location.href);
-          target.searchParams.set("confirm", redirectConfirmId);
+          target.searchParams.set("confirm", confirmForRedirect);
           if (!target.hash) target.hash = "/";
           window.location.assign(target.toString());
           return;
         }
 
+        setConfirmationMessage(
+          "Zgłoszenie zostało przyjęte. Sprawdź skrzynkę e-mail (również Spam/Newsletter) i kliknij link potwierdzający.",
+        );
         setIsSuccess(true);
         form.reset();
       } catch {
@@ -409,6 +439,7 @@ export function RecruitmentForm() {
   }, [submitError]);
 
   if (isSuccess) {
+    const isConfirmedFromLink = Boolean(confirmationMessage);
     return (
       <Box
         ref={successAlertRef}
@@ -420,35 +451,40 @@ export function RecruitmentForm() {
         <Alert
           variant="light"
           color="green"
-          title="Dziękujemy! Zgłoszenie zostało wysłane."
+          title={
+            isConfirmedFromLink ? "Twoje zgłoszenie zostało potwierdzone!" : "Dziękujemy! Zgłoszenie zostało wysłane."
+          }
           icon={<IconCheck size={18} aria-hidden="true" />}
         >
           <Stack gap="sm">
-            <Text size="sm">
-              Dzięki! Zgłoszenie dotarło. Wrócimy do Ciebie z informacją o kolejnych krokach tak
-              szybko, jak to możliwe.
-            </Text>
-
-            <Text size="sm" fw={700}>
-              Aby dokończyć zgłoszenie:
-            </Text>
-            {confirmationMessage && (
+            {isConfirmedFromLink ? (
               <Text size="sm" fw={700} c="green.8">
                 {confirmationMessage}
               </Text>
+            ) : (
+              <>
+                <Text size="sm">
+                  Dzięki! Zgłoszenie dotarło. Wrócimy do Ciebie z informacją o kolejnych krokach tak
+                  szybko, jak to możliwe.
+                </Text>
+
+                <Text size="sm" fw={700}>
+                  Aby dokończyć zgłoszenie:
+                </Text>
+                <Box component="ol" m={0} pl="lg" style={{ display: "grid", gap: 6 }}>
+                  <Text component="li" size="sm">
+                    Sprawdź swoją skrzynkę e-mail.
+                  </Text>
+                  <Text component="li" size="sm">
+                    Zajrzyj także do folderów <strong>Spam</strong> i{" "}
+                    <strong>Newsletter/Oferty</strong> — wiadomość może tam trafić.
+                  </Text>
+                  <Text component="li" size="sm">
+                    Kliknij <strong>link potwierdzający</strong> w wiadomości od nas.
+                  </Text>
+                </Box>
+              </>
             )}
-            <Box component="ol" m={0} pl="lg" style={{ display: "grid", gap: 6 }}>
-              <Text component="li" size="sm">
-                Sprawdź swoją skrzynkę e-mail.
-              </Text>
-              <Text component="li" size="sm">
-                Zajrzyj także do folderów <strong>Spam</strong> i{" "}
-                <strong>Newsletter/Oferty</strong> — wiadomość może tam trafić.
-              </Text>
-              <Text component="li" size="sm">
-                Kliknij <strong>link potwierdzający</strong> w wiadomości od nas.
-              </Text>
-            </Box>
           </Stack>
         </Alert>
       </Box>
