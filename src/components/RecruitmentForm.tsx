@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconAlertCircle, IconCheck } from "@tabler/icons-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { trackEvent } from "../lib/analytics";
 import { primaryFilledSubmitButtonStyles } from "../lib/ctaButtonStyles";
@@ -22,6 +22,9 @@ import { DEFAULT_MAKE_LEADS_WEBHOOK } from "../lib/defaultMakeWebhookUrl";
 const RECRUITMENT_WEBHOOK_URL =
   (import.meta.env.VITE_RECRUITMENT_WEBHOOK_URL as string | undefined)?.trim() ||
   DEFAULT_MAKE_LEADS_WEBHOOK;
+const CONFIRM_WEBHOOK_URL = (
+  import.meta.env.VITE_RECRUITMENT_CONFIRM_WEBHOOK_URL as string | undefined
+)?.trim();
 
 type FormValues = {
   name: string;
@@ -40,6 +43,42 @@ type EmailRule = {
   isValid: (email: string) => boolean;
   message: string;
 };
+
+type SubmitWebhookResponse = {
+  id?: string;
+  confirm?: string;
+  confirmId?: string;
+  confirmationId?: string;
+  confirmUrl?: string;
+  confirmationUrl?: string;
+  url?: string;
+  [key: string]: unknown;
+};
+
+function pickConfirmId(payload: SubmitWebhookResponse): string {
+  const direct =
+    payload.confirmId ??
+    payload.confirmationId ??
+    payload.confirm ??
+    payload.id;
+
+  if (typeof direct === "string" && direct.trim()) {
+    return direct.trim();
+  }
+
+  const urlCandidate = payload.confirmUrl ?? payload.confirmationUrl ?? payload.url;
+  if (typeof urlCandidate === "string" && urlCandidate.trim()) {
+    try {
+      const parsed = new URL(urlCandidate);
+      const fromUrl = parsed.searchParams.get("confirm") ?? parsed.searchParams.get("id");
+      return fromUrl?.trim() ?? "";
+    } catch {
+      return "";
+    }
+  }
+
+  return "";
+}
 
 const EMAIL_RULES: EmailRule[] = [
   {
@@ -157,9 +196,14 @@ export function RecruitmentForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [confirmationMessage, setConfirmationMessage] = useState("");
   const formElementRef = useRef<HTMLFormElement | null>(null);
   const successAlertRef = useRef<HTMLDivElement | null>(null);
   const errorAlertRef = useRef<HTMLDivElement | null>(null);
+  const confirmId = useMemo(() => {
+    const browserParam = new URLSearchParams(window.location.search).get("confirm")?.trim();
+    return browserParam ?? "";
+  }, []);
 
   const form = useForm<FormValues>({
     initialValues: {
@@ -245,10 +289,32 @@ export function RecruitmentForm() {
           throw new Error("submit_failed");
         }
 
+        const rawResponse = (await response.text()).trim();
+        let parsed: SubmitWebhookResponse = {};
+        if (rawResponse) {
+          try {
+            parsed = JSON.parse(rawResponse) as SubmitWebhookResponse;
+          } catch {
+            if (/^rec[\w-]+$/i.test(rawResponse)) {
+              parsed = { confirmId: rawResponse };
+            }
+          }
+        }
+
         trackEvent("submit_success", {
           form_version: "recruitment_v1",
           page_variant: "recruitment",
         });
+
+        const redirectConfirmId = pickConfirmId(parsed);
+        if (redirectConfirmId) {
+          const target = new URL(window.location.href);
+          target.searchParams.set("confirm", redirectConfirmId);
+          if (!target.hash) target.hash = "/";
+          window.location.assign(target.toString());
+          return;
+        }
+
         setIsSuccess(true);
         form.reset();
       } catch {
@@ -286,6 +352,51 @@ export function RecruitmentForm() {
   );
 
   useEffect(() => {
+    if (!confirmId) return;
+    if (!CONFIRM_WEBHOOK_URL) {
+      setSubmitError(
+        "Nie udało się potwierdzić zgłoszenia z linku. Spróbuj ponownie za chwilę albo napisz do nas na kontakt@devmentor.pl.",
+      );
+      return;
+    }
+
+    const controller = new AbortController();
+    const endpoint = new URL(CONFIRM_WEBHOOK_URL);
+    endpoint.searchParams.set("id", confirmId);
+
+    fetch(endpoint.toString(), {
+      method: "GET",
+      signal: controller.signal,
+      headers: { Accept: "text/plain, application/json;q=0.9, */*;q=0.8" },
+    })
+      .then(async (response) => {
+        const text = (await response.text()).trim();
+        if (!response.ok) {
+          throw new Error(text || "Potwierdzenie nie powiodło się.");
+        }
+        setConfirmationMessage(text || "Twoje zgłoszenie zostało potwierdzone!");
+        setIsSuccess(true);
+        setSubmitError("");
+
+        const browserSearch = new URLSearchParams(window.location.search);
+        browserSearch.delete("confirm");
+        const nextSearch = browserSearch.toString();
+        const nextUrl = `${window.location.pathname}${nextSearch ? `?${nextSearch}` : ""}${window.location.hash}`;
+        window.history.replaceState(null, "", nextUrl);
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setSubmitError(
+          error instanceof Error && error.message
+            ? error.message
+            : "Nie udało się potwierdzić zgłoszenia. Spróbuj ponownie za chwilę.",
+        );
+      });
+
+    return () => controller.abort();
+  }, [confirmId]);
+
+  useEffect(() => {
     if (isSuccess) {
       successAlertRef.current?.focus();
     }
@@ -321,6 +432,11 @@ export function RecruitmentForm() {
             <Text size="sm" fw={700}>
               Aby dokończyć zgłoszenie:
             </Text>
+            {confirmationMessage && (
+              <Text size="sm" fw={700} c="green.8">
+                {confirmationMessage}
+              </Text>
+            )}
             <Box component="ol" m={0} pl="lg" style={{ display: "grid", gap: 6 }}>
               <Text component="li" size="sm">
                 Sprawdź swoją skrzynkę e-mail.
