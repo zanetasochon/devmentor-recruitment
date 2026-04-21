@@ -468,9 +468,6 @@ export function RecruitmentForm() {
                   szybko, jak to możliwe.
                 </Text>
 
-                <Text size="sm" fw={700}>
-                  Aby dokończyć zgłoszenie:
-                </Text>
                 <Box component="ol" m={0} pl="lg" style={{ display: "grid", gap: 6 }}>
                   <Text component="li" size="sm">
                     Sprawdź swoją skrzynkę e-mail.
