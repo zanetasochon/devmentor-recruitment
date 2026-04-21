@@ -18,10 +18,6 @@ import { Link } from "react-router-dom";
 import { trackEvent } from "../lib/analytics";
 import { primaryFilledSubmitButtonStyles } from "../lib/ctaButtonStyles";
 import { DEFAULT_MAKE_LEADS_WEBHOOK } from "../lib/defaultMakeWebhookUrl";
-import {
-  isPodcastCodeOutsideValidityWindow,
-  VALID_PODCAST_CODE,
-} from "../lib/podcastCodePolicy";
 
 const RECRUITMENT_WEBHOOK_URL =
   (import.meta.env.VITE_RECRUITMENT_WEBHOOK_URL as string | undefined)?.trim() ||
@@ -181,19 +177,7 @@ export function RecruitmentForm() {
     validate: {
       name: (value) => (value.trim() ? null : "Podaj imię."),
       email: (value) => validateEmailFormat(value),
-      code: (value) => {
-        const trimmed = value.trim();
-        if (!trimmed) {
-          return "Podaj kod z podcastu.";
-        }
-        if (isPodcastCodeOutsideValidityWindow()) {
-          return "Kod utracił ważność (minęło 7 dni od premiery odcinka).";
-        }
-        if (trimmed !== VALID_PODCAST_CODE) {
-          return "Nieprawidłowy kod. Sprawdź odcinek i wpisz kod ponownie.";
-        }
-        return null;
-      },
+      code: (value) => (value.trim() ? null : "Podaj kod z podcastu."),
       description: (value) =>
         value.trim() ? null : "Uzupełnij pole — jest wymagane do zgłoszenia.",
       githubUrl: (value) => {
@@ -220,19 +204,6 @@ export function RecruitmentForm() {
       trackEvent("submit_attempt", { form_version: "recruitment_v1", page_variant: "recruitment" });
 
       const trimmedCode = values.code.trim();
-      if (isPodcastCodeOutsideValidityWindow()) {
-        form.setFieldError(
-          "code",
-          "Kod utracił ważność (minęło 7 dni od premiery odcinka).",
-        );
-        focusFirstInvalidControl();
-        return;
-      }
-      if (trimmedCode !== VALID_PODCAST_CODE) {
-        form.setFieldError("code", "Nieprawidłowy kod. Sprawdź odcinek i wpisz kod ponownie.");
-        focusFirstInvalidControl();
-        return;
-      }
 
       if (values.website.trim()) {
         setIsSuccess(true);
@@ -341,8 +312,28 @@ export function RecruitmentForm() {
           title="Dziękujemy! Zgłoszenie zostało wysłane."
           icon={<IconCheck size={18} aria-hidden="true" />}
         >
-          Dzięki! Zgłoszenie dotarło. Wrócimy do Ciebie z informacją o kolejnych krokach tak szybko,
-          jak to możliwe.
+          <Stack gap="sm">
+            <Text size="sm">
+              Dzięki! Zgłoszenie dotarło. Wrócimy do Ciebie z informacją o kolejnych krokach tak
+              szybko, jak to możliwe.
+            </Text>
+
+            <Text size="sm" fw={700}>
+              Aby dokończyć zgłoszenie:
+            </Text>
+            <Box component="ol" m={0} pl="lg" style={{ display: "grid", gap: 6 }}>
+              <Text component="li" size="sm">
+                Sprawdź swoją skrzynkę e-mail.
+              </Text>
+              <Text component="li" size="sm">
+                Zajrzyj także do folderów <strong>Spam</strong> i{" "}
+                <strong>Newsletter/Oferty</strong> — wiadomość może tam trafić.
+              </Text>
+              <Text component="li" size="sm">
+                Kliknij <strong>link potwierdzający</strong> w wiadomości od nas.
+              </Text>
+            </Box>
+          </Stack>
         </Alert>
       </Box>
     );

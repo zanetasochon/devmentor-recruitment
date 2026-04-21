@@ -21,6 +21,7 @@ import { useClipboard } from "@mantine/hooks";
 import { IconCheck, IconChevronRight } from "@tabler/icons-react";
 import { MouseEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ConfirmBanner } from "../components/ConfirmBanner";
 import { RecruitmentForm } from "../components/RecruitmentForm";
 import { StickyFooter } from "../components/StickyFooter";
 import {
@@ -258,6 +259,7 @@ export function RecruitmentLandingPage() {
 
         <Container size="lg" py={56} style={{ position: "relative", zIndex: 1 }}>
           <Stack gap={80}>
+            <ConfirmBanner />
             <Box component="section" aria-labelledby="hero-title">
               <Grid align="center" gutter={{ base: 80, md: "xl" }}>
                 <Grid.Col span={{ base: 12, md: 6 }}>
