@@ -28,6 +28,8 @@ jobs:
       # Bez VITE_BASE_URL → base `./` w Vite: działa pod github.io/<repo>/ i pod własną domeną (np. rekrutacja.devmentor.pl).
       - name: Build
         run: npm run build
+        env:
+          VITE_RECRUITMENT_CONFIRM_WEBHOOK_URL: ${{ vars.VITE_RECRUITMENT_CONFIRM_WEBHOOK_URL }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

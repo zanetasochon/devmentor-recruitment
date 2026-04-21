@@ -115,6 +115,7 @@ Opcjonalnie test ze sztywnym prefiksem repo: `VITE_BASE_URL=/devmentor-recruitme
 4. W **Environment Variables** możesz dodać opcjonalnie:
    - `VITE_RECRUITMENT_WEBHOOK_URL` — inny URL webhooka Make niż domyślny w kodzie (nadpisanie przy buildzie).
    - `VITE_RECRUITMENT_CONFIRM_WEBHOOK_URL` — URL webhooka używanego do potwierdzenia zgłoszenia przez parametr `?confirm=...`.
+   - Dla GitHub Pages ustaw tę wartość w **Settings → Secrets and variables → Actions → Variables** jako `VITE_RECRUITMENT_CONFIRM_WEBHOOK_URL` (workflow `deploy-pages.yml` przekazuje ją do kroku build).
 5. **Deploy**. Adres produkcyjny będzie miał postać `https://<projekt>.vercel.app`; trasy to `/#/`, `/#/rekrutacja`, `/#/audyt`, `/#/privacy` (HashRouter).
 
 ## Routing i base path
