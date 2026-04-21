@@ -5,6 +5,7 @@ import {
   Button,
   Checkbox,
   Grid,
+  Loader,
   Select,
   Stack,
   Text,
@@ -229,6 +230,7 @@ export function RecruitmentForm() {
     const browserParam = new URLSearchParams(window.location.search).get("confirm")?.trim();
     return browserParam ?? "";
   }, []);
+  const [isConfirming, setIsConfirming] = useState(Boolean(confirmId));
 
   const form = useForm<FormValues>({
     initialValues: {
@@ -382,10 +384,13 @@ export function RecruitmentForm() {
 
   useEffect(() => {
     if (!confirmId) return;
+    setIsConfirming(true);
+
     if (!CONFIRM_WEBHOOK_URL) {
       setSubmitError(
-        "Nie udało się potwierdzić zgłoszenia z linku. Spróbuj ponownie za chwilę albo napisz do nas na kontakt@devmentor.pl.",
+        "Nie udało się potwierdzić zgłoszenia z linku. Spróbuj ponownie za chwilę albo napisz do nas na mateusz@devmentor.pl.",
       );
+      setIsConfirming(false);
       return;
     }
 
@@ -420,6 +425,9 @@ export function RecruitmentForm() {
             ? error.message
             : "Nie udało się potwierdzić zgłoszenia. Spróbuj ponownie za chwilę.",
         );
+      })
+      .finally(() => {
+        setIsConfirming(false);
       });
 
     return () => controller.abort();
@@ -488,6 +496,44 @@ export function RecruitmentForm() {
         </Alert>
       </Box>
     );
+  }
+
+  if (confirmId) {
+    if (isConfirming) {
+      return (
+        <Box role="status" aria-live="polite" aria-atomic="true">
+          <Alert
+            variant="light"
+            color="blue"
+            title="Potwierdzamy zgłoszenie..."
+            icon={<Loader size={18} />}
+          >
+            <Text size="sm">Sprawdzamy link potwierdzający. To zajmie chwilę.</Text>
+          </Alert>
+        </Box>
+      );
+    }
+
+    if (submitError) {
+      return (
+        <Box
+          ref={errorAlertRef}
+          tabIndex={-1}
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <Alert
+            color="red"
+            variant="light"
+            icon={<IconAlertCircle size={18} aria-hidden="true" />}
+            title="Nie udało się potwierdzić zgłoszenia"
+          >
+            {submitError}
+          </Alert>
+        </Box>
+      );
+    }
   }
 
   return (
