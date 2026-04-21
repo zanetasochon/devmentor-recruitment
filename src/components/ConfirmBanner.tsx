@@ -13,7 +13,15 @@ export function ConfirmBanner() {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const confirmId = searchParams.get("confirm")?.trim() ?? "";
+  const confirmId = useMemo(() => {
+    const routerParam = searchParams.get("confirm")?.trim();
+    if (routerParam) return routerParam;
+
+    const browserParam = new URLSearchParams(window.location.search).get("confirm")?.trim();
+    if (browserParam) return browserParam;
+
+    return "";
+  }, [searchParams]);
 
   const [status, setStatus] = useState<ConfirmStatus>("idle");
   const [message, setMessage] = useState<string>("");
@@ -53,7 +61,12 @@ export function ConfirmBanner() {
         }
         setStatus("success");
         setMessage(text || "Zgłoszenie zostało potwierdzone. Dziękujemy!");
-        navigate(`${location.pathname}${location.hash}`, { replace: true });
+        const browserSearch = new URLSearchParams(window.location.search);
+        browserSearch.delete("confirm");
+        const nextSearch = browserSearch.toString();
+        navigate(`${location.pathname}${location.hash}${nextSearch ? `?${nextSearch}` : ""}`, {
+          replace: true,
+        });
       })
       .catch((error: unknown) => {
         if (error instanceof DOMException && error.name === "AbortError") return;
