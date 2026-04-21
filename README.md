@@ -114,6 +114,7 @@ Opcjonalnie test ze sztywnym prefiksem repo: `VITE_BASE_URL=/devmentor-recruitme
 3. Ustawienia domyślne są zwykle poprawne: **Build Command** `npm run build`, **Output** `dist` (możesz też polegać na pliku `vercel.json` w rootcie).
 4. W **Environment Variables** możesz dodać opcjonalnie:
    - `VITE_RECRUITMENT_WEBHOOK_URL` — inny URL webhooka Make niż domyślny w kodzie (nadpisanie przy buildzie).
+   - `VITE_RECRUITMENT_CONFIRM_WEBHOOK_URL` — URL webhooka używanego do potwierdzenia zgłoszenia przez parametr `?confirm=...`.
 5. **Deploy**. Adres produkcyjny będzie miał postać `https://<projekt>.vercel.app`; trasy to `/#/`, `/#/rekrutacja`, `/#/audyt`, `/#/privacy` (HashRouter).
 
 ## Routing i base path

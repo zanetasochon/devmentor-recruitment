@@ -3,7 +3,9 @@ import { IconAlertCircle, IconCheck } from "@tabler/icons-react";
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
-const CONFIRM_ENDPOINT = "https://hook.eu1.make.com/mutj2hror3okrspph04bbgijfu2pjrps";
+const CONFIRM_ENDPOINT = (
+  import.meta.env.VITE_RECRUITMENT_CONFIRM_WEBHOOK_URL as string | undefined
+)?.trim();
 
 type ConfirmStatus = "idle" | "loading" | "success" | "error";
 
@@ -17,7 +19,7 @@ export function ConfirmBanner() {
   const [message, setMessage] = useState<string>("");
 
   const requestUrl = useMemo(() => {
-    if (!confirmId) return "";
+    if (!confirmId || !CONFIRM_ENDPOINT) return "";
     const url = new URL(CONFIRM_ENDPOINT);
     url.searchParams.set("id", confirmId);
     return url.toString();
@@ -25,6 +27,12 @@ export function ConfirmBanner() {
 
   useEffect(() => {
     if (!confirmId) {
+      return;
+    }
+
+    if (!requestUrl) {
+      setStatus("error");
+      setMessage("Brakuje konfiguracji webhooka potwierdzenia.");
       return;
     }
 
