@@ -55,6 +55,8 @@ type SubmitWebhookResponse = {
   [key: string]: unknown;
 };
 
+const CONFIRMATION_TITLE = "Twoje zgłoszenie zostało potwierdzone!";
+
 function pickConfirmId(payload: SubmitWebhookResponse): string {
   const direct =
     payload.confirmId ??
@@ -342,9 +344,6 @@ export function RecruitmentForm() {
           return;
         }
 
-        setConfirmationMessage(
-          "Zgłoszenie zostało przyjęte. Sprawdź skrzynkę e-mail (również Spam/Newsletter) i kliknij link potwierdzający.",
-        );
         setIsSuccess(true);
         form.reset();
       } catch {
@@ -404,7 +403,7 @@ export function RecruitmentForm() {
         if (!response.ok) {
           throw new Error(text || "Potwierdzenie nie powiodło się.");
         }
-        setConfirmationMessage(text || "Twoje zgłoszenie zostało potwierdzone!");
+        setConfirmationMessage(text || CONFIRMATION_TITLE);
         setIsSuccess(true);
         setSubmitError("");
 
@@ -439,7 +438,10 @@ export function RecruitmentForm() {
   }, [submitError]);
 
   if (isSuccess) {
-    const isConfirmedFromLink = Boolean(confirmationMessage);
+    const isConfirmedFromLink = Boolean(confirmId && confirmationMessage);
+    const shouldShowConfirmationBody =
+      isConfirmedFromLink &&
+      confirmationMessage.trim().toLowerCase() !== CONFIRMATION_TITLE.toLowerCase();
     return (
       <Box
         ref={successAlertRef}
@@ -451,16 +453,16 @@ export function RecruitmentForm() {
         <Alert
           variant="light"
           color="green"
-          title={
-            isConfirmedFromLink ? "Twoje zgłoszenie zostało potwierdzone!" : "Dziękujemy! Zgłoszenie zostało wysłane."
-          }
+          title={isConfirmedFromLink ? CONFIRMATION_TITLE : "Dziękujemy! Zgłoszenie zostało wysłane."}
           icon={<IconCheck size={18} aria-hidden="true" />}
         >
           <Stack gap="sm">
             {isConfirmedFromLink ? (
-              <Text size="sm" fw={700} c="green.8">
+              shouldShowConfirmationBody ? (
+              <Text size="sm" c="green.8">
                 {confirmationMessage}
               </Text>
+              ) : null
             ) : (
               <>
                 <Text size="sm">
