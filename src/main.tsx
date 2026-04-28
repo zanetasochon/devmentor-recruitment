@@ -13,10 +13,10 @@ import { publicAsset } from "./lib/publicAsset";
 import { appTheme } from "./theme";
 import "./styles.css";
 
-document.documentElement.style.setProperty(
-  "--nav-decore-yellow-bg",
-  `url('${publicAsset("assets/decore-yellow.png")}')`,
-);
+const navDecoreYellowUrl = new URL(publicAsset("assets/decore-yellow.png"), window.location.href)
+  .toString();
+
+document.documentElement.style.setProperty("--nav-decore-yellow-bg", `url('${navDecoreYellowUrl}')`);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

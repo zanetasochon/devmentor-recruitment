@@ -107,6 +107,13 @@ export const appTheme = createTheme({
     xl: "100em",
   },
   components: {
+    Input: {
+      styles: {
+        input: {
+          borderWidth: rem(1),
+        },
+      },
+    },
     Button: {
       defaultProps: {
         radius: "md",

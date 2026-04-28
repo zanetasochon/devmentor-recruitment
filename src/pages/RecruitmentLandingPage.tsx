@@ -820,7 +820,8 @@ export function RecruitmentLandingPage() {
                       <Accordion.Control>Co obejmuje próbna rekrutacja?</Accordion.Control>
                       <Accordion.Panel>
                         3 spotkania po 45 minut oraz code review, zgodnie z opisem sekcji oferty na
-                        stronie.
+                        stronie. Wszystkie spotkania należy odbyć w ciągu 2 miesięcy od wyłonienia
+                        zwycięzcy.
                       </Accordion.Panel>
                     </Accordion.Item>
                     <Accordion.Item value="rodo">

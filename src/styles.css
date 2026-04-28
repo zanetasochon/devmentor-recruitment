@@ -39,9 +39,9 @@ body {
     .mantine-TextInput-input,
     .mantine-Accordion-control
   ):focus-visible {
-  outline: 3px solid #0a70ff !important;
-  outline-offset: 2px !important;
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 6px rgba(10, 112, 255, 0.38) !important;
+  outline: 2px solid #0a70ff !important;
+  outline-offset: 1px !important;
+  box-shadow: 0 0 0 1px #ffffff, 0 0 0 3px rgba(10, 112, 255, 0.22) !important;
 }
 
 /* Skip link */
