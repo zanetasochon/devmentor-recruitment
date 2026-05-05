@@ -361,6 +361,26 @@ export function RecruitmentLandingPage() {
               </Grid>
             </Box>
 
+            <Box component="section" aria-label="Wsparcie tu i teraz">
+              <Stack
+                gap="md"
+                p="lg"
+                className="scope-section"
+                style={{
+                  borderRadius: "var(--mantine-radius-lg)",
+                  backgroundColor: "rgba(10, 112, 255, 0.12)",
+                }}
+              >
+                <Text size="sm" ta="center">
+                  Jeśli potrzebujesz wsparcia tu i teraz, zapraszam na rozmowę (
+                  <Anchor href="https://devmentor.pl/rozmowa" target="_blank" rel="noopener noreferrer" fw={600}>
+                    devmentor.pl/rozmowa
+                  </Anchor>
+                  ), gdzie pokażę, jak Ci mogę pomóc.
+                </Text>
+              </Stack>
+            </Box>
+
             <Box component="section" aria-labelledby="partner-title">
               <Grid gutter={{ base: "md", md: "xl" }} align="center" justify="center">
                 <Grid.Col span={{ base: 12, md: 7 }} className="why-content partner-mobile-center">
@@ -772,6 +792,51 @@ export function RecruitmentLandingPage() {
                     </Grid>
                   ))}
                 </Stack>
+              </Stack>
+            </Box>
+
+            <Box component="section" aria-label="Podcast CTA">
+              <Stack
+                gap="md"
+                p="lg"
+                className="scope-section"
+                style={{
+                  borderRadius: "var(--mantine-radius-lg)",
+                  backgroundColor: "rgba(10, 112, 255, 0.12)",
+                }}
+              >
+                <Text
+                  size="sm"
+                  fw={700}
+                  tt="uppercase"
+                  c="blue.7"
+                  ta="center"
+                  className="scope-eyebrow"
+                  style={{ letterSpacing: "0.12em" }}
+                >
+                  Rekrutacja IT
+                </Text>
+                <Title order={2} ta="center" className="scope-heading">
+                  Zgarnij kod z podcastu
+                </Title>
+                <Text ta="center" fw={600}>
+                  Odsłuchaj najnowszy odcinek podcastu, aby zgarnąć aktualny kod do zgłoszenia.
+                </Text>
+                <Text ta="center" size="sm" c="dimmed" maw={760} mx="auto">
+                  Jeśli chcesz zwiększyć swoje szanse w rekrutacji IT, zacznij od odcinka z
+                  najnowszym kodem i przejdź przez proces krok po kroku razem z nami.
+                </Text>
+                <Button
+                  component="a"
+                  href="https://devmentor.pl/bc/podcast"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  styles={primaryHeroButtonStyles}
+                  maw={360}
+                  mx="auto"
+                >
+                  Przejdź do podcastu
+                </Button>
               </Stack>
             </Box>
 
